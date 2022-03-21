@@ -27,9 +27,17 @@
     (syntax-parse stx
       #:literal-sets (bnf-literals)
       #:literals (quote)
-      [(_ rule-name:id rewrite ...+)
+      [(_ rule-name:id rewrite ...+) 
        ;; check that rule-name hasn't been taken
-       ;; check that rule is not name of grammar
-       #`(make-rule rule-name (stx-map expand-term rewrite) ...)])))
+       ;; check that rule is not name of this grammar
+       #`(make-rule rule-name (stx-map expand-term rewrite) ...)]))
+
+  (define/hygienic (expand-define-grammar stx) #:definition
+    (syntax-parse stx
+      #:literal-sets (bnf-literals)
+      #:literals (quote)
+      [(_ grammar-name:id rule ...)
+       ;; check that grammar name hasn't been taken
+       #`(define-grammar grammar-name (stx-map expand-make-rule rule) ...)])))
 
 
