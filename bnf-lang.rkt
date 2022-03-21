@@ -27,7 +27,7 @@
     (syntax-parse stx
       #:literal-sets (bnf-literals)
       #:literals (quote)
-      [(_ rule-name:id rewrite ...+) 
+      [(_ rule-name:id rewrite ...+)
        ;; check that rule-name hasn't been taken
        ;; check that rule is not name of this grammar
        #`(make-rule rule-name (stx-map expand-term rewrite) ...)]))
